@@ -5,7 +5,7 @@
         <a href="/" class="brand-logo left">Vue-Geo</a>
         <ul class="right">
           <li>
-            <a>Signup</a>
+            <router-link to="/signup">Signup</router-link>
           </li>
           <li>
             <a>Login</a>
