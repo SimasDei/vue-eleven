@@ -2,13 +2,16 @@
   <div class="navbar">
     <nav class="deep-purple darken-1">
       <div class="container">
-        <a href="/" class="brand-logo left">Vue-Geo</a>
+        <router-link to="/" class="brand-logo left">Vue-Geo</router-link>
         <ul class="right">
           <li>
             <router-link to="/signup">Signup</router-link>
           </li>
           <li>
-            <a>Login</a>
+            <router-link to="/login">Login</router-link>
+          </li>
+          <li>
+            <a @click="logout">Logout</a>
           </li>
         </ul>
       </div>
@@ -16,7 +19,19 @@
   </div>
 </template>
 <script>
+import firebase from 'firebase';
+
 export default {
   name: 'Navbar',
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push('/');
+        });
+    },
+  },
 };
 </script>

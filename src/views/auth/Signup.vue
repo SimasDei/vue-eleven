@@ -58,6 +58,14 @@ export default {
             firebase
               .auth()
               .createUserWithEmailAndPassword(this.email, this.password)
+              .then((cred) => {
+                ref.set({
+                  alias: this.alias,
+                  geolocation: null,
+                  user_id: cred.user.uid,
+                });
+              })
+              .then(() => this.$router.push({ name: 'GMap' }))
               .catch((error) => {
                 this.feedback = error.message;
               });
