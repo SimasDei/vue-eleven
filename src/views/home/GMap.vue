@@ -4,16 +4,63 @@
   </div>
 </template>
 <script>
+import firebase from 'firebase';
+import db from '@/firebase/init';
+
 export default {
   name: 'GMap',
   data() {
     return {
-      lat: 54.703929,
-      lng: 25.276668,
+      lat: 21.303074,
+      lng: -157.857442,
     };
   },
   mounted() {
-    this.renderMap();
+    const user = firebase.auth().currentUser;
+    console.log(user);
+    /**
+     * @todo - Check browser's geolocation compatibility
+     */
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+
+          db.collection('users')
+            .where('user_id', '==', user.uid)
+            .get()
+            .then((snapshot) => {
+              snapshot.forEach((doc) => {
+                db.collection('users')
+                  .doc(doc.id)
+                  .update({
+                    geolocation: {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude,
+                    },
+                  });
+              });
+            })
+            .then(() => {
+              this.renderMap();
+            });
+
+          this.renderMap();
+        },
+        (error) => {
+          // eslint-disable-next-line
+          console.log(error)
+          this.renderMap();
+        },
+        {
+          maximumAge: 1000 * 60 * 60,
+          timeout: 3000,
+        },
+      );
+    } else {
+      this.renderMap();
+    }
   },
   methods: {
     renderMap() {

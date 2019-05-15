@@ -1,7 +1,7 @@
 <template>
   <div class="signup container">
     <form class="card-panel" @submit.prevent="signup">
-      <h2 class="center deep-purple-text">Signup</h2>
+      <h2 class="center blue-text">Signup</h2>
       <div class="field">
         <label for="email">Email*</label>
         <input type="email" name="email" v-model="email">
@@ -16,7 +16,7 @@
       </div>
       <p v-if="feedback" class="red-text center">{{feedback}}</p>
       <div class="field center">
-        <button class="btn deep-purple">Signup</button>
+        <button class="btn blue">Signup</button>
       </div>
     </form>
   </div>

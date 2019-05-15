@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <nav class="deep-purple darken-1">
+    <nav class="blue darken-1">
       <div class="container">
         <router-link to="/" class="brand-logo left">Vue-Geo</router-link>
         <ul class="right">
